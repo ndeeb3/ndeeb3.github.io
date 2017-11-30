@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    #map {
+        height: 700px;
+        width: 100%;
+    }
+</style>
 <head>
     <meta charset="UTF-8">
     <title>Rat Sightings</title>
@@ -17,8 +23,8 @@
             <a class="navbar-brand" href="#">Team Liferaft</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="map.html">View Map</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li class="active"><a href="#">View Map</a></li>
             <li><a href="sightings-list.html">View All Sightings</a></li>
             <li><a href="submit.html">Submit Sighting</a></li>
         </ul>
@@ -27,13 +33,27 @@
 
 <section>
     <div class="container">
-        <p>
-            Test
-        </p>
+        <h1>Map</h1>
+        <div id="map"></div>
     </div>
 </section>
 
-
+<script>
+    function initMap() {
+        var uluru = {lat: -25.363, lng: 131.044};
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 4,
+            center: uluru
+        });
+        var marker = new google.maps.Marker({
+            position: uluru,
+            map: map
+        });
+    }
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY96Ypx4Hy55NmlPu7EvrOhf54Y3tjysw&callback=initMap">
+</script>
 <script src="https://www.gstatic.com/firebasejs/4.7.0/firebase.js"></script>
 <script>
     // Initialize Firebase
