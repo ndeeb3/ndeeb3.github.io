@@ -37,7 +37,13 @@
         <p> 
             Address: <input type="text" name="Address"> 
         </p>
-        
+
+        <p> 
+            ZipCode: <input name="zipcode"> 
+        </p>
+        <p>
+            City: <input type="text" name="City">
+        </p>    
         <p>
             Longtitude: <input name = "Longtitude">
         </p>
@@ -50,6 +56,35 @@
             Date:     <input type = "text" name = "Date">
         </p>
 
+         <!-- This is a drop down menu for boroughs. -->
+        <p>
+            Borough
+        </p>  
+
+        <p>
+            <select name="cars" size="5" multiple>
+              <option value=">MANHATTAN">MANHATTAN</option>
+              <option value="STATENISLAND">STATEN ISLAND</option>
+              <option value="QUEENS">QUEENS</option>
+              <option value="BROOKLYN">BROOKLYN</option>
+              <option value="BRONX">BRONX</option>
+            </select>
+        </p>
+
+        <p>
+            LocationType
+        </p>  
+
+        <p>
+            <select name="cars" size="6" multiple>
+              <option value="1-2 Family Dwelling">1-2 Family Dwelling</option>
+              <option value="3+ Family Apt. Building">3+ Family Apt. Building</option>
+              <option value="Commercial Building"> Commercial Building</option>
+              <option value="Vacant Lot">Vacant Lot</option>
+              <option value="Construction Site">Construction Site</option>
+              <option value="Hospital">Catch Basin/Sewer</option>
+            </select>
+        </p>        
         <button type=submit; id = "submitReportButton">
             Submit Rat Report 
         </button>
@@ -89,14 +124,29 @@
             alert("address is empty");
             return false
          }
+         var zip = document.forms["ReportForm"]["zipcode"].value
+         if (zip == "" || isNaN(zip) || zip.toString().length < 6){
+            alert("zipcode format is not right");
+            return false;
+         }
+         var city = document.forms["ReportForm"]["City"].value;
+         if (city == ""){
+            alert("your city is empty")
+            return false
+         }                  
          var longitude = document.forms["ReportForm"]["Longtitude"].value;
          if (longitudeIncorrect(longitude)){
             alert("longtitude is not formatted correctly");
             return false
          }
         var latitude = document.forms["ReportForm"]["Latitude"].value;
-         if (longitudeIncorrect(latitude)){
+        if (longitudeIncorrect(latitude)){
             alert("latitude is not formatted correctly");
+            return false
+         }
+         var date = document.forms["ReportForm"]["Date"].value;
+         if (!Date.parse(date)){
+            alert("wrong date format: Should be YYYY-MM-DD or YYYY-MM-DDTHH:MM:SS")
             return false
          }
 
@@ -108,6 +158,7 @@
     function longitudeIncorrect(longitude) {
         return (longitude == "" || isNaN(longitude) || longitude > 180 || longitude < -180);
     }
+    
     //method for putting the report into firebase
     function submitReport(){
         alert("report has been submitted");
