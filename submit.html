@@ -31,8 +31,23 @@
             Submission
         </p>
     </div>
+    <form action="javascript:;" onsubmit="submitReport()">
+        <button type=submit; id = "submitReportButton">
+            Submit Rat Report 
+        </button>
+    </form>    
 </section>
 
+
+
+<body>
+    <script>
+        function submitReport(context) {
+             alert("your report has actually been submmited");
+             document.getElementById("submitReportButton").style.background='#FF1493';
+        }
+    </script>
+</body>        
 
 <script src="https://www.gstatic.com/firebasejs/4.7.0/firebase.js"></script>
 <script>
