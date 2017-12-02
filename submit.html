@@ -31,7 +31,25 @@
             Submission
         </p>
     </div>
-    <form action="javascript:;" onsubmit="submitReport()">
+
+    <!-- This is where we will put in all the information for Rat Reports. -->
+    <form name = "ReportForm" action="javascript:submitReport();" onsubmit=" return checkReport()">
+        <p> 
+            Address: <input type="text" name="Address"> 
+        </p>
+        
+        <p>
+            Longtitude: <input name = "Longtitude">
+        </p>
+
+        <p>
+            Latitude: <input name = "Latitude">
+        </p>
+        
+        <p>
+            Date:     <input type = "text" name = "Date">
+        </p>
+
         <button type=submit; id = "submitReportButton">
             Submit Rat Report 
         </button>
@@ -39,18 +57,20 @@
 </section>
 
 
-
-<body>
-    <script>
-        function submitReport(context) {
-             alert("your report has actually been submmited");
-             document.getElementById("submitReportButton").style.background='#FF1493';
-        }
-    </script>
-</body>        
+     
 
 <script src="https://www.gstatic.com/firebasejs/4.7.0/firebase.js"></script>
 <script>
+    //this is where i will populate default values
+    var d = new Date(); var n = d.toISOString(); document.forms["ReportForm"]["Date"].value = n;
+
+
+
+
+
+
+
+
     // Initialize Firebase
     var config = {
         apiKey: "AIzaSyD6aX5POWrbRPL3J3cVnw3KLqbNZoUM060",
@@ -61,6 +81,37 @@
         messagingSenderId: "556803259852"
     };
     firebase.initializeApp(config);
+
+    //returns true if valid report
+    function checkReport() {
+         var address = document.forms["ReportForm"]["Address"].value;
+         if (address == ""){
+            alert("address is empty");
+            return false
+         }
+         var longitude = document.forms["ReportForm"]["Longtitude"].value;
+         if (longitudeIncorrect(longitude)){
+            alert("longtitude is not formatted correctly");
+            return false
+         }
+        var latitude = document.forms["ReportForm"]["Latitude"].value;
+         if (longitudeIncorrect(latitude)){
+            alert("latitude is not formatted correctly");
+            return false
+         }
+
+         //thiis line of code turns the button pink for no reason document.getElementById("submitReportButton").style.background='#FF1493';
+         return true;
+    }
+
+    //returns true if longitude or latitude is not formatted correctly
+    function longitudeIncorrect(longitude) {
+        return (longitude == "" || isNaN(longitude) || longitude > 180 || longitude < -180);
+    }
+    //method for putting the report into firebase
+    function submitReport(){
+        alert("report has been submitted");
+    }
 </script>
 </body>
 </html>
